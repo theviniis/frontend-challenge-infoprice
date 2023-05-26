@@ -2,7 +2,7 @@ body {
   display: grid;
   place-content: center;
   height: 100dvh;
-  background: #fafafa url('grey.png'); /* http://subtlepatterns.com/subtle-grey/ */
+  background: #fafafa url('../grey.png'); /* http://subtlepatterns.com/subtle-grey/ */
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 62.5%;
   line-height: 1;
