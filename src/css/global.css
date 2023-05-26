@@ -1,0 +1,39 @@
+body {
+  display: grid;
+  place-content: center;
+  height: 100dvh;
+  background: #fafafa url('grey.png'); /* http://subtlepatterns.com/subtle-grey/ */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 62.5%;
+  line-height: 1;
+  color: #616161;
+  padding: 35px 0;
+}
+
+h1 {
+  color: #646464;
+  font-size: 4em;
+  line-height: 1.6em;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 2.8em;
+  line-height: 1.55em;
+  margin-bottom: 4px;
+  color: #888;
+}
+
+p {
+  font-size: 1.4em;
+  line-height: 1.55em;
+  margin-bottom: 12px;
+}
+
+a {
+  color: #8eadd2;
+}
+
+a:hover {
+  color: #6e91b9;
+}

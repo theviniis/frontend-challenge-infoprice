@@ -1,72 +1,70 @@
-import './css/styles.css'
+import { useState } from 'react'
+import { useFetch } from './hooks'
+import Loading from './components/Loading'
+import UserCard from './components/UserCard'
+import SearchUserForm from './components/SearchUserForm'
+import { ErrorMessage } from './components/ErrorMessage/ErrorMessage'
+
+export type UserProps = {
+  login: string
+  name: string
+  url: string
+  avatar_url: string
+  followers: number
+  following: number
+  public_repos: number
+  html_url: string
+  repos_url: string
+}
 
 function App() {
+  const [username, setUsername] = useState<string>('')
+  const { data, error, loading, request } = useFetch<UserProps>()
+
+  async function getUserData(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    return request(`https://api.github.com/users/${username}`)
+  }
+
+  if (loading) {
+    return <Loading />
+  }
+
   return (
-    <div id="w">
-      <div>
-        <h1>Test frontend - InfoPrice</h1>
-        <p>
+    <div id="wrapper">
+      <SearchUserForm onSubmit={(e) => getUserData(e)}>
+        <SearchUserForm.Title>Test frontend - InfoPrice</SearchUserForm.Title>
+        <SearchUserForm.Description>
           Enter a single Github username below and click the button to display
           profile info.
-        </p>
+        </SearchUserForm.Description>
+        <SearchUserForm.Input
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          autoFocus
+        />
+      </SearchUserForm>
 
-        <input type="text" id="ghusername" placeholder="Github username..." />
-        <a href="#" id="ghsubmitbtn">
-          Search
-        </a>
+      {data && (
+        <UserCard>
+          <UserCard.Header
+            name={data.name}
+            html_url={data.html_url}
+            login={data.login}
+          />
+          <UserCard.Content
+            html_url={data.html_url}
+            avatar_url={data.avatar_url}
+            login={data.login}
+            followers={data.followers}
+            following={data.following}
+            public_repos={data.public_repos}
+            repos_url={data.repos_url}
+          />
+        </UserCard>
+      )}
 
-        <div id="ghapidata" className="clearfix"></div>
-      </div>
-
-      <h2>No User Info Found</h2>
-
-      <div>
-        <h2>
-          USUARIO_NOME
-          <span className="smallname">
-            (@
-            <a href="USUARIO_URL_PERFIL" target="_blank">
-              USUARIO_LOGIN
-            </a>
-            )
-          </span>
-        </h2>
-
-        <div className="ghcontent">
-          <div className="avi">
-            <a href="USUARIO_URL_PERFIL" target="_blank">
-              <img
-                src="USUARIO_PERFIL_FOTO_URL"
-                width="80"
-                height="80"
-                alt="USUARIO_LOGIN"
-              />
-            </a>
-          </div>
-          <p>
-            Followers: USUARIO_FOLLOWERS - Following: USUARIO_FOLLOWINGS
-            <br />
-            Repos: USUARIO_QUANTIDADE_REPOSITORIOS
-          </p>
-        </div>
-
-        <div className="repolist clearfix">
-          <p>No repos!</p>
-
-          <div>
-            <p>
-              <strong>Repos List:</strong>
-            </p>
-            <ul>
-              <li>
-                <a href="USUARIO_REPOSITORIO_URL" target="_blank">
-                  USUARIO_REPOSITORIO_NOME
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </div>
   )
 }
