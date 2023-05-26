@@ -40,7 +40,7 @@ function App() {
         </SearchUserForm.Description>
         <SearchUserForm.Input
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.target.value.toLocaleLowerCase())}
           autoFocus
         />
       </SearchUserForm>
