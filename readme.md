@@ -15,6 +15,8 @@ Este teste é focado em design de código e conhecimentos com HTML, CSS, Javascr
 
 - Implementação da feature buscar o usuário, utilizando a API https://api.github.com/users/{username}
 
+- Ajuste na responsividade
+
 - Realizar o code splitting tornando os componentes reutilizáveis
 
 ## Melhorias
